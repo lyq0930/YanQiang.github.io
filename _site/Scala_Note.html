@@ -1,0 +1,43 @@
+<h4 id="lazy-values">Lazy Values</h4>
+
+<p>Lazu values are useful to delay costly initialization statements.</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">lazy</span> <span class="k">val</span> <span class="n">words</span> <span class="k">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="nc">Spource</span><span class="o">.</span><span class="n">fromFile</span><span class="o">(</span><span class="s">"/usr/share/dict/words"</span><span class="o">).</span><span class="n">mkString</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Laziness is not cost-free. Every time a lazy value is accessed, a method is called that checks, in a threadsafe manner, whether the value has already been initialized.</p>
+</blockquote>
+
+<h2 id="exception">Exception</h2>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">throw</span> <span class="k">new</span> <span class="n">illegalArgumentException</span><span class="o">(</span><span class="s">"x should not be negative"</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<h4 id="no-checked-exception-in-scala">No checked exception in Scala</h4>
+
+<p>No function or method need to throw an exception.</p>
+
+<h4 id="a-throw-expression-has-the-special-type-nothing">A <code class="highlighter-rouge">throw</code> expression has the special type <code class="highlighter-rouge">Nothing</code></h4>
+
+<p>That is useful in if/else expressions. If one branch has type Nothing, the type of the if/else expression is the type of the other branch.</p>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="c1">// The if statement has a type Double
+</span><span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="n">sqrt</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
+<span class="o">}</span> <span class="k">else</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"x should not be negative"</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<h4 id="try-catch-clause">Try-catch clause</h4>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+	<span class="n">process</span><span class="o">(</span><span class="k">new</span> <span class="nc">URL</span><span class="o">(</span><span class="s">"http://horstmann.com/fred-tiny.gif"</span><span class="o">))</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">{</span>
+	<span class="k">case</span> <span class="k">_:</span> <span class="kt">MalformedURLException</span> <span class="o">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="s">"Bad URL: "</span> <span class="o">+</span> <span class="n">url</span><span class="o">)</span> 
+	<span class="k">case</span> <span class="n">ex</span><span class="k">:</span> <span class="kt">IOException</span> <span class="o">=&gt;</span> <span class="n">ex</span><span class="o">.</span><span class="n">printStackTrace</span><span class="o">()</span>
+<span class="o">}</span>
+<span class="c1">// "_" here means the variable name is no needed.
+</span></code></pre>
+</div>
